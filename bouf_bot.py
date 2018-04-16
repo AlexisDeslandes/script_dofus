@@ -179,10 +179,11 @@ def combat_7():
 def jouer_combat_8():
     marcher_droite_fond()
     attendre_un_tour()
+    mouse.move(481,500)
+    sleep(1)
     mouse.click(481,500)
-    sleep(2)
-    mouse.click(481,500)
-    sleep(1.5)
+    sleep(1)
+    attendre_un_tour()
     jouer_combat()
 
 def combat_8():
@@ -409,7 +410,7 @@ if __name__=='__main__':
             while besoin_repos():
                 repos()
             combat_10()
-            if i!=3:
+            if i!=2:
                 assoir()
                 while besoin_repos():
                     repos()

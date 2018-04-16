@@ -111,7 +111,7 @@ def lance_pret():
     sleep(6)
 
 def lance_fin_de_tour():
-    sleep(0.5)        
+    sleep(0.5)
     while not pas_en_combat():
         mouse.click(630,909)
         sleep(1.0)
@@ -133,7 +133,8 @@ def jouer_combat():
 def pas_en_combat():
     image = ImageGrab.grab()
     pixel = image.getpixel((688,866))
-    return pixel == couleur_sans_sort
+    couleur_gain_niveau = (171, 166, 137)
+    return pixel == couleur_sans_sort or pixel == couleur_gain_niveau
 
 def assoir():
     mouse.click(63,786)
