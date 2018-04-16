@@ -30,14 +30,19 @@ def lancer_combat(position_mechant):
     sleep(4)
 
 def trouve_joueur():
+    return trouve_joueur_aux(0)
+
+def trouve_joueur_aux(compte):
+    if compte == 5:
+        return (0,688)
     couleur_perso = (221,82,74)
     image = ImageGrab.grab()
     for y in range(200, 800):
         for x in range(100, 1000):
             if (image.getpixel((x,y)) == couleur_perso):
                 return (x,y)
-    return trouve_joueur()
-
+    compte += 1
+    return trouve_joueur_aux(compte)
 
 def besoin_repos():
     image = ImageGrab.grab()
@@ -93,7 +98,7 @@ def lance_sort_3():
         sleep(1)
         image = ImageGrab.grab()
         pixel = image.getpixel((688,866))
-        if pixel != couleur_sans_sort:
+        if pixel == couleur_sans_sort:
             return
 
 def lance_pret():

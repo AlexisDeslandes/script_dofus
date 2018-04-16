@@ -393,13 +393,9 @@ def retourner_donjon():
 
 
 if __name__=='__main__':
-    while True:
+    for j in range(5):
         for i in range(3):
-            rentrer()
-            equipe_pierre()
-            equipe_monture()
-            combat_1()
-            combat_2()
+            
             combat_3()
             combat_4()
             combat_5()
