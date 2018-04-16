@@ -161,8 +161,7 @@ def jouer_combat_7():
     mouse.click(445,588)
     sleep(1.5)
     for i in range(2):
-        lancer_flamiche((442,505))
-    lancer_feu((442,505))
+        lancer_feu((442,505))
     attendre_un_tour()
     mouse.click(421, 553)
     sleep(1.5)
@@ -219,8 +218,7 @@ def jouer_combat_10():
         pos_click = 0
         pos = trouver_mechant(couleur_br)
         for i in range(2):
-            lancer_flamiche((pos[0],pos[1]))
-        lancer_feu((pos[0],pos[1]))
+            lancer_feu((pos[0],pos[1]))
         sleep(4)
         image = ImageGrab.grab()
         pixel = image.getpixel((733, 709))
@@ -393,9 +391,13 @@ def retourner_donjon():
 
 
 if __name__=='__main__':
-    for j in range(5):
+    while True:
         for i in range(3):
-            
+            rentrer()
+            equipe_pierre()
+            equipe_monture()
+            combat_1()
+            combat_2()
             combat_3()
             combat_4()
             combat_5()

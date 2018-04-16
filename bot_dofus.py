@@ -111,15 +111,9 @@ def lance_pret():
     sleep(6)
 
 def lance_fin_de_tour():
-    sleep(0.5)
-    finis = False
-    image = ImageGrab.grab()
-    pixel_avant = image.getpixel((742,664))
-    while (not finis):
+    sleep(0.5)        
+    while not pas_en_combat():
         mouse.click(630,909)
-        image = ImageGrab.grab()
-        pixel = image.getpixel((742,664))
-        finis = not (pixel == pixel_avant)
         sleep(1.0)
 
 def enleve_fin_de_combat():
