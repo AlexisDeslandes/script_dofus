@@ -191,13 +191,13 @@ def combat_7():
     jouer_combat_7()
 
 def jouer_combat_8():
+    lancer_gonflable()
     marcher_droite_fond()
     attendre_un_tour()
     mouse.move(481,500)
     sleep(1)
     mouse.click(481,500)
     sleep(1)
-    attendre_un_tour()
     jouer_combat()
 
 def combat_8():
@@ -268,6 +268,7 @@ def combat_10():
     lance_pret()
     sleep(8)
     jouer_combat_10()
+    sleep(2)
 
 def equipe_pierre():
     mouse.click(711,803)
@@ -406,7 +407,7 @@ def retourner_donjon():
 
 
 if __name__=='__main__':
-    while True:
+    for j in range(5):
         for i in range(3):
             rentrer()
             equipe_pierre()
