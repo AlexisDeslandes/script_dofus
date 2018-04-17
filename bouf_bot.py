@@ -89,11 +89,30 @@ def typical_debut():
     sleep(4)
     lance_pret()
 
+def lancer_gonflable():
+    sleep(1)
+    position_perso = trouve_joueur()
+    position_gonf = (position_perso[0]-30,position_perso[1]+50)
+    mouse.move(760, 869)
+    sleep(1)
+    mouse.click(760,869)
+    sleep(0.75)
+    mouse.move(position_gonf[0],position_gonf[1])
+    sleep(1)
+    mouse.click(position_gonf[0],position_gonf[1])
+    sleep(0.75)
+    mouse.move(300,300)
+    sleep(0.5)
+
+
 def jouer_combat_1():
+    lancer_gonflable()
     for i in range(3):
         marcher_droite_fond()
         attendre_un_tour()
-    jouer_combat()
+    lance_sort_1()
+    lance_fin_de_tour()
+    enleve_fin_de_combat()
 
 def combat_1():
     lancer_combat_boufton()
@@ -103,11 +122,6 @@ def combat_1():
     lance_pret()
     jouer_combat_1()
 
-def jouer_combat_2():
-    for i in range(3):
-        marcher_droite_fond()
-        attendre_un_tour()
-    jouer_combat()
 
 def combat_2():
     lancer_combat_boufton()
@@ -116,7 +130,7 @@ def combat_2():
     mouse.click(244,694)
     sleep(0.5)
     lance_pret()
-    jouer_combat_2()
+    jouer_combat_1()
 
 
 def combat_3():
@@ -410,10 +424,6 @@ if __name__=='__main__':
             while besoin_repos():
                 repos()
             combat_10()
-            if i!=2:
-                assoir()
-                while besoin_repos():
-                    repos()
             sortir()
         go_bonta()
         prendre_zappi()

@@ -16,10 +16,6 @@ while True:
         while besoin_repos():
             repos()
         combat_10()
-        if i!=3:
-            assoir()
-            while besoin_repos():
-                repos()
         sortir()
     go_bonta()
     prendre_zappi()
