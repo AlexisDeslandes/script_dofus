@@ -37,9 +37,9 @@ def lancer_flamiche(position):
 
 def marcher_droite_fond():
     pos_perso = trouve_joueur()
-    mouse.move(pos_perso[0]+135,pos_perso[1])
+    mouse.move(pos_perso[0]+173,pos_perso[1]-18)
     sleep(0.5)
-    mouse.click(pos_perso[0]+135,pos_perso[1])
+    mouse.click(pos_perso[0]+173,pos_perso[1]-18)
     sleep(1)
 
 def lancer_feu(position):
@@ -63,26 +63,22 @@ def trouver_mechant(couleur_mechant):
 def lancer_combat_boufton():
     position = trouver_mechant(couleur_boufton_blanc)
     mouse.click(position[0],position[1])
-    sleep(2)
-    if pas_en_combat():
+    while pas_en_combat():
         return lancer_combat_boufton()
     mouse.move(871, 713)
     sleep(0.3)
     mouse.click(871,713)
-    print "combat verouille"
-    sleep(1.5)
+    sleep(0.5)
 
 def lancer_combat_bouftou():
     position = trouver_mechant(couleur_bouftou)
     mouse.click(position[0],position[1])
-    sleep(2)
-    if pas_en_combat():
+    while pas_en_combat():
         return lancer_combat_bouftou()
     mouse.move(871, 713)
     sleep(0.3)
     mouse.click(871,713)
-    print "combat verouille"
-    sleep(1.5)
+    sleep(0.5)
 
 def typical_debut():
     lancer_combat_boufton()
@@ -90,13 +86,11 @@ def typical_debut():
     lance_pret()
 
 def lancer_gonflable():
-    sleep(1)
     position_perso = trouve_joueur()
     position_gonf = (position_perso[0]-30,position_perso[1]+50)
     mouse.move(760, 869)
-    sleep(1)
+    sleep(0.5)
     mouse.click(760,869)
-    sleep(0.75)
     mouse.move(position_gonf[0],position_gonf[1])
     sleep(1)
     mouse.click(position_gonf[0],position_gonf[1])
@@ -104,12 +98,18 @@ def lancer_gonflable():
     mouse.move(300,300)
     sleep(0.5)
 
+def marcher_droite_fond_six():
+    pos_perso = trouve_joueur()
+    mouse.move(pos_perso[0]+200,pos_perso[1]-43)
+    sleep(0.5)
+    mouse.click(pos_perso[0]+200,pos_perso[1]-43)
+    sleep(1)
 
 def jouer_combat_1():
     lancer_gonflable()
-    for i in range(3):
-        marcher_droite_fond()
-        attendre_un_tour()
+    marcher_droite_fond()
+    attendre_un_tour()
+    marcher_droite_fond_six()
     lance_sort_1()
     lance_fin_de_tour()
     enleve_fin_de_combat()
@@ -184,9 +184,10 @@ def jouer_combat_7():
 
 def combat_7():
     lancer_combat_bouftou()
-    mouse.move(309,658)
-    sleep(0.5)
-    mouse.click(309,658)
+    sleep(1)
+    mouse.move(290, 655)
+    sleep(1)
+    mouse.click(290, 655)
     lance_pret()
     jouer_combat_7()
 
@@ -194,9 +195,15 @@ def jouer_combat_8():
     lancer_gonflable()
     marcher_droite_fond()
     attendre_un_tour()
-    mouse.move(481,500)
+    mouse.move(411, 537)
     sleep(1)
-    mouse.click(481,500)
+    mouse.click(411, 537)
+    sleep(0.3)
+    mouse.move(300,300)
+    sleep(0.7)
+    mouse.move(511, 480)
+    sleep(1)
+    mouse.click(511, 480)
     sleep(1)
     jouer_combat()
 
@@ -234,7 +241,7 @@ def jouer_combat_10():
         pos = trouver_mechant(couleur_br)
         for i in range(2):
             lancer_feu((pos[0],pos[1]))
-        sleep(4)
+        sleep(6)
         image = ImageGrab.grab()
         pixel = image.getpixel((733, 709))
         finis = not (pixel == pixel_avant)
@@ -288,6 +295,24 @@ def equipe_pierre():
                 sleep(0.5)
                 return
 
+def equipe_cac():
+    mouse.click(711,803)
+    sleep(0.7)
+    for y in range(4):
+        for x in range(4):
+            x_press = 774 + 40 * x
+            y_press = 429 + 40 * y
+            mouse.click(x_press,y_press)
+            sleep(1)
+            image = ImageGrab.grab()
+            if image.getpixel((396,628)) == (218, 214, 184):
+                mouse.press(x_press,y_press)
+                mouse.release(611,334)
+                sleep(0.5)
+                mouse.click(932,265)
+                sleep(0.5)
+                return
+
 def equipe_monture():
     mouse.click(896,808)
     sleep(0.7)
@@ -322,30 +347,37 @@ def prendre_zappi():
     sleep(1)
     mouse.click(523, 504)
     sleep(1)
-    mouse.click(376, 319)
+    mouse.click(324, 323)
     sleep(1)
-    mouse.click(317, 475)
+    mouse.click(311, 412)
     sleep(1)
 
 def parcours_banque(pixel):
     pixel_bis = (0,0,0)
+    position_curseur_x = 730
+    position_curseur_y = 453
     while (pixel!=pixel_bis):
-        mouse.click(730, 453)
+        mouse.click(position_curseur_x, position_curseur_y)
         sleep(0.8)
         image = ImageGrab.grab()
         pixel_bis = image.getpixel((520, 496))
+        pixel_id_objet = image.getpixel((341,420))
         sleep(1)
         if pixel == pixel_bis:
             return
-        sleep(0.5)
-        mouse.press(730, 453)
-        sleep(0.5)
-        mouse.release(44, 451)
-        sleep(0.5)
-        mouse.click(70, 441)
-        sleep(0.5)
-        mouse.click(205, 441)
-        sleep(1)
+        if pixel_id_objet == (232,219,157) or pixel_id_objet == (152,151,39) or pixel_id_objet == (164,154,186) or pixel_id_objet == (218,214,184):
+            sleep(1)
+            position_curseur_x += 40
+        else:
+            sleep(0.5)
+            mouse.press(position_curseur_x, position_curseur_y)
+            sleep(0.5)
+            mouse.release(44, 451)
+            sleep(0.5)
+            mouse.click(70, 441)
+            sleep(0.5)
+            mouse.click(205, 441)
+            sleep(1)
 
 def vide_banque():
     for i in range(3):
@@ -354,36 +386,13 @@ def vide_banque():
         image = ImageGrab.grab()
         pixel = image.getpixel((520, 496))
         parcours_banque(pixel)
-    mouse.click(844,375)
-    sleep(0.5)
-    mouse.click(45, 444)
-    sleep(0.5)
-    mouse.press(45, 444)
-    sleep(0.5)
-    mouse.release(732, 447)
-    sleep(0.5)
-    mouse.click(588, 434)
-    sleep(0.5)
-    mouse.click(715, 436)
-    sleep(1)
-
-    mouse.click(154,378)
-    sleep(0.5)
-    mouse.press(45, 444)
-    sleep(0.5)
-    mouse.release(732, 447)
-    sleep(0.5)
-    mouse.click(588, 434)
-    sleep(0.5)
-    mouse.click(715, 436)
-    sleep(1)
-
     mouse.click(929, 344)
     sleep(1)
 
 def banque():
     mouse.click(505, 414)
     sleep(6)
+    assoir()
     mouse.click(483, 464)
     sleep(1)
     mouse.click(511, 467)
@@ -410,7 +419,7 @@ if __name__=='__main__':
     for j in range(5):
         for i in range(3):
             rentrer()
-            equipe_pierre()
+            equipe_cac()
             equipe_monture()
             combat_1()
             combat_2()
@@ -421,11 +430,14 @@ if __name__=='__main__':
             combat_7()
             combat_8()
             combat_9()
-            assoir()
-            while besoin_repos():
-                repos()
+            equipe_pierre()
+            if i!=2:
+                assoir()
+                while besoin_repos():
+                    repos()
             combat_10()
             sortir()
+            print "Donjon boucle"
         go_bonta()
         prendre_zappi()
         banque()

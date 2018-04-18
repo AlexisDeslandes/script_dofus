@@ -1,7 +1,7 @@
 while True:
     for i in range(3):
         rentrer()
-        equipe_pierre()
+        equipe_cac()
         equipe_monture()
         combat_1()
         combat_2()
@@ -12,9 +12,7 @@ while True:
         combat_7()
         combat_8()
         combat_9()
-        assoir()
-        while besoin_repos():
-            repos()
+        equipe_pierre()
         combat_10()
         sortir()
     go_bonta()

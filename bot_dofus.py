@@ -35,7 +35,7 @@ def trouve_joueur():
 def trouve_joueur_aux(compte):
     if compte == 5:
         return (0,688)
-    couleur_perso = (221,82,74)
+    couleur_perso = (255, 204, 0)
     image = ImageGrab.grab()
     for y in range(200, 800):
         for x in range(100, 1000):
@@ -101,14 +101,19 @@ def lance_sort_3():
         if pixel == couleur_sans_sort:
             return
 
+def attendre_debut():
+    image = ImageGrab.grab()
+    while not image.getpixel((121,367)) == (156,94,70):
+        sleep(0.5)
+        image = ImageGrab.grab()
+    sleep(1)
+
 def lance_pret():
     sleep(1)
     mouse.move(875,747)
     sleep(0.5)
     mouse.click(875,747)
-    sleep(0.5)
-    mouse.move(300,300)
-    sleep(6)
+    attendre_debut()
 
 def lance_fin_de_tour():
     sleep(0.5)
