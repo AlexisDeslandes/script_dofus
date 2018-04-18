@@ -65,8 +65,6 @@ def lancer_combat_boufton():
     mouse.click(position[0],position[1])
     while pas_en_combat():
         return lancer_combat_boufton()
-    mouse.move(871, 713)
-    sleep(0.3)
     mouse.click(871,713)
     sleep(0.5)
 
@@ -75,8 +73,6 @@ def lancer_combat_bouftou():
     mouse.click(position[0],position[1])
     while pas_en_combat():
         return lancer_combat_bouftou()
-    mouse.move(871, 713)
-    sleep(0.3)
     mouse.click(871,713)
     sleep(0.5)
 
@@ -147,8 +143,9 @@ def combat_4():
 
 def combat_5():
     lancer_combat_boufton()
+    sleep(0.7)
     mouse.move(483,570)
-    sleep(0.5)
+    sleep(0.7)
     mouse.click(483,570)
     lance_pret()
     mouse.move(447,552)
@@ -322,11 +319,11 @@ def equipe_monture():
 
 def sortir():
     mouse.click(579, 465)
-    sleep(1)
+    sleep(1.5)
     mouse.click(589,475)
-    sleep(1)
+    sleep(1.5)
     mouse.click(89, 537)
-    sleep(1)
+    sleep(1.5)
 
 def rentrer():
     mouse.click(614, 419)
@@ -356,20 +353,19 @@ def parcours_banque(pixel):
     pixel_bis = (0,0,0)
     position_curseur_x = 730
     position_curseur_y = 453
+    sleep(1)
     while (pixel!=pixel_bis):
         mouse.click(position_curseur_x, position_curseur_y)
-        sleep(0.8)
+        sleep(0.5)
         image = ImageGrab.grab()
         pixel_bis = image.getpixel((520, 496))
         pixel_id_objet = image.getpixel((341,420))
-        sleep(1)
+        pixel_spe_clef = image.getpixel((333,407))
         if pixel == pixel_bis:
             return
-        if pixel_id_objet == (232,219,157) or pixel_id_objet == (152,151,39) or pixel_id_objet == (164,154,186) or pixel_id_objet == (218,214,184):
-            sleep(1)
+        if pixel_spe_clef == (222, 198, 150) or pixel_id_objet == (232,219,157) or pixel_id_objet == (152,151,39) or pixel_id_objet == (164,154,186):
             position_curseur_x += 40
         else:
-            sleep(0.5)
             mouse.press(position_curseur_x, position_curseur_y)
             sleep(0.5)
             mouse.release(44, 451)
@@ -377,7 +373,7 @@ def parcours_banque(pixel):
             mouse.click(70, 441)
             sleep(0.5)
             mouse.click(205, 441)
-            sleep(1)
+            sleep(0.5)
 
 def vide_banque():
     for i in range(3):
@@ -437,7 +433,6 @@ if __name__=='__main__':
                     repos()
             combat_10()
             sortir()
-            print "Donjon boucle"
         go_bonta()
         prendre_zappi()
         banque()
