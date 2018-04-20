@@ -13,13 +13,16 @@ couleur_bouftou = (228,212,177)
 couleur_br = (0, 0, 255)
 mouse = pymouse.PyMouse()
 
-def attendre_un_tour():
+def passer_tour():
     mouse.move(630,909)
     sleep(0.5)
     mouse.click(630,909)
     sleep(1)
+
+def attendre_un_tour():
+    passer_tour()
     image = ImageGrab.grab()
-    while not image.getpixel((121,367)) == (156,94,70):
+    while image.getpixel((121,367)) != (156,94,70):
         sleep(0.5)
         image = ImageGrab.grab()
     sleep(1)
@@ -238,7 +241,8 @@ def jouer_combat_10():
         pos = trouver_mechant(couleur_br)
         for i in range(2):
             lancer_feu((pos[0],pos[1]))
-        sleep(6)
+        passer_tour()
+        sleep(3)
         image = ImageGrab.grab()
         pixel = image.getpixel((733, 709))
         finis = not (pixel == pixel_avant)
@@ -270,7 +274,7 @@ def combat_10():
     lancer_combat_bouftou()
     sleep(0.8)
     lance_pret()
-    sleep(8)
+    sleep(6)
     jouer_combat_10()
     sleep(2)
 
@@ -340,9 +344,9 @@ def go_bonta():
     sleep(1)
 
 def prendre_zappi():
-    mouse.click(471, 467)
+    mouse.click(462, 408)
     sleep(1)
-    mouse.click(523, 504)
+    mouse.click(514, 451)
     sleep(1)
     mouse.click(324, 323)
     sleep(1)
@@ -412,7 +416,7 @@ def retourner_donjon():
 
 
 if __name__=='__main__':
-    for j in range(5):
+    for j in range(7):
         for i in range(3):
             rentrer()
             equipe_cac()

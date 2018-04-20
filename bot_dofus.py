@@ -1,13 +1,14 @@
 from pymouse import PyMouse
 import pyscreenshot as ImageGrab
 from time import sleep
+from bouf_bot import *
 
 mouse = PyMouse()
 position = 0
 compte_combat = 0
 couleur_sans_sort = (190, 185, 152)
 
-def trouver_mechant(limite):
+def trouver_mechant_nb(limite):
     if limite == 2:
         return (0,0)
     couleur_voulue = (159,89,170)
@@ -20,12 +21,12 @@ def trouver_mechant(limite):
             if pixel == couleur_voulue or pixel == couleur_voulue_2 or pixel == couleur_voulue_3:
                 return (x,y)
     limite += 1
-    return trouver_mechant(limite)
+    return trouver_mechant_nb(limite)
 
 def lancer_combat(position_mechant):
     mouse.click(position_mechant[0],position_mechant[1])
     sleep(4)
-    position_mechant = trouver_mechant(0)
+    position_mechant = trouver_mechant_nb(0)
     mouse.click(position_mechant[0],position_mechant[1])
     sleep(4)
 
@@ -116,10 +117,18 @@ def lance_pret():
     attendre_debut()
 
 def lance_fin_de_tour():
-    sleep(0.5)
+    mouse.click(630,909)
+    compte = 0
     while not pas_en_combat():
-        mouse.click(630,909)
         sleep(1.0)
+        image = ImageGrab.grab()
+        if image.getpixel((121,367)) == (156,94,70):
+            if compte > 4:
+                position_ennemi = trouver_mechant(couleur_br)
+                for i in range(2):
+                    lancer_feu((position_ennemi[0],position_ennemi[1]))
+            mouse.click(630,909)
+            compte += 1
 
 def enleve_fin_de_combat():
     x_to_click = 742
@@ -184,7 +193,7 @@ if __name__=='__main__':
             if compte_combat == 10:
                 supprime_objets()
                 compte_combat = 0
-            position_mechant = trouver_mechant(0)
+            position_mechant = trouver_mechant_nb(0)
             if (position_mechant != (0,0)):
                 lancer_combat(position_mechant)
                 jouer_combat()
