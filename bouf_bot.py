@@ -66,6 +66,7 @@ def trouver_mechant(couleur_mechant):
                 return (x,y)
     return trouver_mechant(couleur_mechant)
 
+
 def lancer_combat_boufton():
     position = trouver_mechant(couleur_boufton_blanc)
     mouse.click(position[0],position[1])
@@ -241,9 +242,11 @@ def jouer_combat_10():
         for i in range(2):
             pos = trouver_mechant(couleur_br)
             lancer_feu((pos[0],pos[1]))
+            sleep(2)
+            if pas_en_combat():
+                return
         attendre_un_tour()
         finis = pas_en_combat()
-    enleve_fin_de_combat()
 
 def equipe_atouin():
     equipe_monture()
@@ -271,6 +274,7 @@ def combat_10():
     lance_pret()
     sleep(6)
     jouer_combat_10()
+    enleve_fin_de_combat()
     sleep(2)
 
 def equipe_pierre():
