@@ -119,8 +119,7 @@ def lance_pret():
 def lance_fin_de_tour():
     mouse.click(630,909)
     compte = 0
-    while not pas_en_combat():
-        sleep(1.0)
+    while not pas_en_combat():        
         image = ImageGrab.grab()
         if image.getpixel((121,367)) == (156,94,70):
             if compte > 4:

@@ -162,7 +162,7 @@ def combat_5():
     jouer_combat()
 
 def combat_6():
-    lancer_combat_boufton()
+    lancer_combat_bouftou()
     mouse.move(718,443)
     sleep(0.5)
     mouse.move(718,443)
@@ -280,6 +280,8 @@ def combat_10():
 
 def equipe_pierre():
     mouse.click(711,803)
+    sleep(1)
+    mouse.click(795, 339)
     sleep(0.7)
     for y in range(4):
         for x in range(4):
@@ -328,30 +330,36 @@ def sortir():
     sleep(1.5)
     mouse.click(89, 537)
     sleep(1.5)
+    image = ImageGrab.grab()
+    if image.getpixel((459,433)) != (77,66,6):
+        return sortir()
 
 def rentrer():
     mouse.click(614, 419)
-    sleep(1)
+    sleep(2)
     mouse.click(624,429)
-    sleep(1)
+    sleep(2)
     mouse.click(151, 600)
-    sleep(1)
+    sleep(2)
+    image = ImageGrab.grab()
+    if image.getpixel((459,433)) == (77,66,6):
+        return rentrer()
 
 def go_bonta():
     mouse.click(872, 898)
     sleep(0.1)
     mouse.click(872, 898)
-    sleep(1)
+    sleep(2)
 
 def prendre_zappi():
     mouse.click(462, 408)
-    sleep(1)
+    sleep(2)
     mouse.click(514, 451)
-    sleep(1)
+    sleep(2)
     mouse.click(324, 323)
-    sleep(1)
+    sleep(2)
     mouse.click(311, 412)
-    sleep(1)
+    sleep(2)
 
 def parcours_banque(pixel):
     pixel_bis = (0,0,0)
@@ -365,9 +373,10 @@ def parcours_banque(pixel):
         pixel_bis = image.getpixel((520, 496))
         pixel_id_objet = image.getpixel((341,420))
         pixel_spe_clef = image.getpixel((333,407))
+        pixel_spe_ceinture = image.getpixel((370,410))
         if pixel == pixel_bis:
             return
-        if pixel_spe_clef == (222, 198, 150) or pixel_id_objet == (232,219,157) or pixel_id_objet == (152,151,39) or pixel_id_objet == (164,154,186):
+        if pixel_spe_ceinture!=(254,253,249) and pixel_spe_clef == (222, 198, 150) or pixel_id_objet == (232,219,157) or pixel_id_objet == (152,151,39) or pixel_id_objet == (164,154,186):
             position_curseur_x += 40
         else:
             mouse.press(position_curseur_x, position_curseur_y)
@@ -394,22 +403,27 @@ def banque():
     sleep(6)
     assoir()
     mouse.click(483, 464)
-    sleep(1)
+    sleep(2)
     mouse.click(511, 467)
-    sleep(1)
+    sleep(2)
     mouse.click(221, 536)
-    sleep(1)
+    sleep(2)
     vide_banque()
 
 def retourner_donjon():
     mouse.click(909, 901)
     sleep(0.1)
     mouse.click(909, 901)
-    sleep(1)
+    sleep(2)
     mouse.click(927, 446)
-    sleep(4)
+    sleep(7)
     mouse.click(511, 236)
-    sleep(4)
+    sleep(7)
+    vide = False
+    while not vide:
+        image = ImageGrab.grab()
+        pixel = image.getpixel((311,238))
+        vide = pixel == (252,191,50)
     mouse.click(309, 236)
     sleep(7)
 
