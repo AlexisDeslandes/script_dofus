@@ -18,6 +18,7 @@ def passer_tour():
     sleep(0.5)
     mouse.click(630,909)
     sleep(1)
+    mouse.move(300,300)
 
 def attendre_un_tour():
     passer_tour()
@@ -25,6 +26,8 @@ def attendre_un_tour():
     while image.getpixel((121,367)) != (156,94,70):
         sleep(0.5)
         image = ImageGrab.grab()
+        if pas_en_combat():
+            return
     sleep(1)
 
 def lancer_flamiche(position):
@@ -53,7 +56,7 @@ def lancer_feu(position):
     mouse.click(position[0],position[1])
     sleep(0.2)
     mouse.move(200,200)
-    sleep(1.0)
+    sleep(2.5)
 
 def trouver_mechant(couleur_mechant):
     image = ImageGrab.grab()
@@ -234,20 +237,12 @@ def jouer_combat_10():
     mouse.click(797,863)
     click_soi()
     finis = False
-    image = ImageGrab.grab()
-    pixel_avant = image.getpixel((733, 709))
     while (not finis):
-        pos_click = 0
-        pos = trouver_mechant(couleur_br)
         for i in range(2):
+            pos = trouver_mechant(couleur_br)
             lancer_feu((pos[0],pos[1]))
-        passer_tour()
-        sleep(3)
-        image = ImageGrab.grab()
-        pixel = image.getpixel((733, 709))
-        finis = not (pixel == pixel_avant)
-        if not finis:
-            attendre_un_tour()
+        attendre_un_tour()
+        finis = pas_en_combat()
     enleve_fin_de_combat()
 
 def equipe_atouin():
@@ -430,7 +425,7 @@ def retourner_donjon():
 
 
 if __name__=='__main__':
-    for j in range(7):
+    for j in range(3):
         for i in range(3):
             rentrer()
             equipe_cac()
