@@ -329,9 +329,6 @@ def sortir():
     sleep(1.5)
     mouse.click(89, 537)
     sleep(1.5)
-    image = ImageGrab.grab()
-    if image.getpixel((459,433)) != (77,66,6):
-        return sortir()
 
 def rentrer():
     mouse.click(614, 419)
@@ -409,6 +406,18 @@ def banque():
     sleep(2)
     vide_banque()
 
+def combat_exte():
+    while not pas_en_combat():
+        for i in range(2):
+            position_ennemi = trouver_mechant(couleur_br)
+            lancer_feu((position_ennemi[0],position_ennemi[1]))
+            sleep(2)
+            if pas_en_combat():
+                return
+        mouse.click(630,909)
+        sleep(2)
+    enleve_fin_de_combat()
+
 def retourner_donjon():
     mouse.click(909, 901)
     sleep(0.1)
@@ -418,18 +427,21 @@ def retourner_donjon():
     sleep(7)
     mouse.click(511, 236)
     sleep(7)
-    vide = False
-    while not vide:
-        image = ImageGrab.grab()
-        pixel = image.getpixel((311,238))
-        vide = pixel == (252,191,50)
-    mouse.click(309, 236)
+    if not pas_en_combat():
+        lance_pret()
+        combat_exte()
+        mouse.click(511,236)
+        sleep(3)
+    mouse.click(307,220)
     sleep(7)
-
-
+    if not pas_en_combat():
+        lance_pret()
+        combat_exte()
+        mouse.click(307,220)
+        sleep(3)
 
 if __name__=='__main__':
-    for j in range(3):
+    for j in range(7):
         for i in range(3):
             rentrer()
             equipe_cac()

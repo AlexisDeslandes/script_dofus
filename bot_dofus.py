@@ -123,10 +123,14 @@ def lance_fin_de_tour():
         image = ImageGrab.grab()
         if image.getpixel((121,367)) == (156,94,70):
             if compte > 4:
-                position_ennemi = trouver_mechant(couleur_br)
                 for i in range(2):
+                    position_ennemi = trouver_mechant(couleur_br)
                     lancer_feu((position_ennemi[0],position_ennemi[1]))
+                    sleep(2)
+                    if pas_en_combat():
+                        return                    
             mouse.click(630,909)
+            sleep(2)
             compte += 1
 
 def enleve_fin_de_combat():
