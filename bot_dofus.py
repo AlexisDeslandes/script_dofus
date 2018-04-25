@@ -128,15 +128,13 @@ def lance_fin_de_tour():
                     lancer_feu((position_ennemi[0],position_ennemi[1]))
                     sleep(2)
                     if pas_en_combat():
-                        return                    
+                        return
             mouse.click(630,909)
             sleep(2)
             compte += 1
 
 def enleve_fin_de_combat():
     x_to_click = 742
-    mouse.click(480,553)
-    sleep(0.2)
     mouse.click(480,553)
     sleep(0.2)
     mouse.click(480,553)

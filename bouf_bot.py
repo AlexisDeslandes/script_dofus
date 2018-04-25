@@ -8,8 +8,8 @@ x_fin = 960
 y_debut = 220
 y_fin = 777
 
-couleur_boufton_blanc = (252,235,196)
-couleur_bouftou = (228,212,177)
+couleur_boufton_blanc = (100, 84, 70)
+couleur_bouftou = (252, 235, 196)
 couleur_br = (0, 0, 255)
 mouse = pymouse.PyMouse()
 
@@ -59,29 +59,34 @@ def lancer_feu(position):
     sleep(2.5)
 
 def trouver_mechant(couleur_mechant):
-    image = ImageGrab.grab()
-    for x in range(x_debut,x_fin):
-        for y in range(y_debut,y_fin):
-            if image.getpixel((x,y)) == couleur_mechant:
-                return (x,y)
-    return trouver_mechant(couleur_mechant)
-
+    while True:
+        image = ImageGrab.grab()
+        for x in range(x_debut,x_fin):
+            for y in range(y_debut,y_fin):
+                if image.getpixel((x,y)) == couleur_mechant:
+                    return (x,y)
 
 def lancer_combat_boufton():
-    position = trouver_mechant(couleur_boufton_blanc)
-    mouse.click(position[0],position[1])
+    mouse.click(934, 256)
     while pas_en_combat():
-        return lancer_combat_boufton()
-    mouse.click(871,713)
-    sleep(0.5)
+        position = trouver_mechant(couleur_boufton_blanc)
+        mouse.click(position[0],position[1])
+        for i in range(5):
+            sleep(0.5)
+            if not pas_en_combat():
+                mouse.click(871,713)
+                return
 
 def lancer_combat_bouftou():
-    position = trouver_mechant(couleur_bouftou)
-    mouse.click(position[0],position[1])
+    mouse.click(934, 256)
     while pas_en_combat():
-        return lancer_combat_bouftou()
-    mouse.click(871,713)
-    sleep(0.5)
+        position = trouver_mechant(couleur_bouftou)
+        mouse.click(position[0],position[1])
+        for i in range(5):
+            sleep(0.5)
+            if not pas_en_combat():
+                mouse.click(871,713)
+                return
 
 def typical_debut():
     lancer_combat_boufton()
@@ -441,8 +446,8 @@ def retourner_donjon():
         sleep(3)
 
 if __name__=='__main__':
-    for j in range(7):
-        for i in range(3):
+    for j in range(8):
+        for i in range(4):
             rentrer()
             equipe_cac()
             equipe_monture()
@@ -456,7 +461,7 @@ if __name__=='__main__':
             combat_8()
             combat_9()
             equipe_pierre()
-            if i!=2:
+            if i!=3:
                 assoir()
                 while besoin_repos():
                     repos()
