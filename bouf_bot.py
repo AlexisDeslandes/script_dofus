@@ -2,6 +2,7 @@ import pymouse
 import pyscreenshot as ImageGrab
 from time import sleep
 from bot_dofus import *
+from math import sqrt
 
 x_debut = 0
 x_fin = 960
@@ -58,13 +59,29 @@ def lancer_feu(position):
     mouse.move(200,200)
     sleep(2.5)
 
+def distance_entre(x1,x2,y1,y2):
+    x = (x2-x1) * (x2-x1)
+    y = (y2-y1) * (y2-y1)
+    return sqrt(x + y)
+
+
 def trouver_mechant(couleur_mechant):
+    distance_minimale = 2000
+    position_perso = trouve_joueur()
+    x_voulue = -1
+    y_voulue = -1
     while True:
         image = ImageGrab.grab()
         for x in range(x_debut,x_fin):
             for y in range(y_debut,y_fin):
                 if image.getpixel((x,y)) == couleur_mechant:
-                    return (x,y)
+                    distance = distance_entre(position_perso[0],x,position_perso[1],y)
+                    if distance<distance_minimale:
+                        distance_minimale = distance
+                        x_voulue = x
+                        y_voulue = y
+        if distance_minimale != 2000:
+            return (x_voulue,y_voulue)
 
 def lancer_combat_boufton():
     mouse.click(934, 256)
@@ -94,17 +111,23 @@ def typical_debut():
     lance_pret()
 
 def lancer_gonflable():
+    est_lancer = False
     position_perso = trouve_joueur()
     position_gonf = (position_perso[0]-30,position_perso[1]+50)
-    mouse.move(760, 869)
-    sleep(0.5)
-    mouse.click(760,869)
-    mouse.move(position_gonf[0],position_gonf[1])
-    sleep(1)
-    mouse.click(position_gonf[0],position_gonf[1])
-    sleep(0.75)
-    mouse.move(300,300)
-    sleep(0.5)
+    image = ImageGrab.grab()
+    while not est_lancer:
+        mouse.move(760, 869)
+        sleep(0.5)
+        mouse.click(760,869)
+        mouse.move(position_gonf[0],position_gonf[1])
+        sleep(1)
+        mouse.click(position_gonf[0],position_gonf[1])
+        sleep(0.75)
+        mouse.move(100,100)
+        sleep(0.2)
+        image = ImageGrab.grab()
+        pixel = image.getpixel((758, 863))
+        est_lancer = pixel == (80, 80, 78)
 
 def marcher_droite_fond_six():
     pos_perso = trouve_joueur()
@@ -446,7 +469,8 @@ def retourner_donjon():
         sleep(3)
 
 if __name__=='__main__':
-    for j in range(8):
+    compteur = 0
+    for j in range(10):
         for i in range(4):
             rentrer()
             equipe_cac()
@@ -467,6 +491,8 @@ if __name__=='__main__':
                     repos()
             combat_10()
             sortir()
+            compteur += 1
+            print compteur
         go_bonta()
         prendre_zappi()
         banque()

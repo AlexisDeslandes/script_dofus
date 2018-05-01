@@ -54,8 +54,7 @@ def besoin_repos():
     return False
 
 
-def repos():
-    print "Repos pour 5 secondes"
+def repos():    
     sleep(5)
 
 def click_soi():
@@ -104,7 +103,7 @@ def lance_sort_3():
 
 def attendre_debut():
     image = ImageGrab.grab()
-    while not image.getpixel((121,367)) == (156,94,70):
+    while image.getpixel((121,367)) != (156,94,70) and not pas_en_combat():
         sleep(0.5)
         image = ImageGrab.grab()
     sleep(1)
@@ -123,12 +122,8 @@ def lance_fin_de_tour():
         image = ImageGrab.grab()
         if image.getpixel((121,367)) == (156,94,70):
             if compte > 4:
-                for i in range(2):
-                    position_ennemi = trouver_mechant(couleur_br)
-                    lancer_feu((position_ennemi[0],position_ennemi[1]))
-                    sleep(2)
-                    if pas_en_combat():
-                        return
+                lance_sort_1()
+                compte = 0
             mouse.click(630,909)
             sleep(2)
             compte += 1
