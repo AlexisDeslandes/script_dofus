@@ -8,6 +8,16 @@ position = 0
 compte_combat = 0
 couleur_sans_sort = (190, 185, 152)
 
+def attendre_un_tour():
+    passer_tour()
+    image = ImageGrab.grab()
+    while image.getpixel((121,367)) != (156,94,70):
+        sleep(0.5)
+        image = ImageGrab.grab()
+        if pas_en_combat():
+            return
+    sleep(1)
+
 def trouver_mechant_nb(limite):
     if limite == 2:
         return (0,0)
@@ -54,7 +64,7 @@ def besoin_repos():
     return False
 
 
-def repos():    
+def repos():
     sleep(5)
 
 def click_soi():
@@ -100,6 +110,8 @@ def lance_sort_3():
         pixel = image.getpixel((688,866))
         if pixel == couleur_sans_sort:
             return
+        else:
+            attendre_un_tour()
 
 def attendre_debut():
     image = ImageGrab.grab()

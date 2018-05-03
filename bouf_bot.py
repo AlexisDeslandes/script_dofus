@@ -21,16 +21,6 @@ def passer_tour():
     sleep(1)
     mouse.move(300,300)
 
-def attendre_un_tour():
-    passer_tour()
-    image = ImageGrab.grab()
-    while image.getpixel((121,367)) != (156,94,70):
-        sleep(0.5)
-        image = ImageGrab.grab()
-        if pas_en_combat():
-            return
-    sleep(1)
-
 def lancer_flamiche(position):
     mouse.move(688,865)
     sleep(0.5)
@@ -300,7 +290,7 @@ def combat_10():
     lancer_combat_bouftou()
     sleep(0.8)
     lance_pret()
-    sleep(6)
+    sleep(3)
     jouer_combat_10()
     enleve_fin_de_combat()
     sleep(2)
